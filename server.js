@@ -66,6 +66,7 @@ const pizzas = [
   
 
 const htmlTemplate = readFileSync(`${__dirname}/index.html`, 'utf-8');
+const clientJS = readFileSync(`${__dirname}/client.js`, 'utf-8');
 
 const server = createServer((request, response) => {
     const pathName = parse(request.url, true).pathname;
@@ -78,8 +79,9 @@ const server = createServer((request, response) => {
 
         response.writeHead(200, {"Content-type": "text/html"});
         response.end(html);
-    } else if (pathName === "/test") {
-        response.end("TEST");
+    } else if (pathName === "/client.js") {
+        response.writeHead(200, {"Content-type": "application/javascript"});
+        response.end(clientJS);
     } else {
         response.end("The URL cannot be found");
     }
